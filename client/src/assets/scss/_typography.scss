@@ -57,12 +57,15 @@ body {
       line-height: 2.8rem;
     }
     &-bold500 {
+      font-size: inherit;
       font-weight: 500;
     }
     &-bold600 {
+      font-size: inherit;
       font-weight: 600;
     }
     &-bold {
+      font-size: inherit;
       font-weight: 700;
     }
     &-center {
