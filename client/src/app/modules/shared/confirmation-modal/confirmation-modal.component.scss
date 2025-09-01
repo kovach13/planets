@@ -1,0 +1,23 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.confirmation-modal {
+  padding: 2rem 2.8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  .modal-icon {
+    font-size: 6rem;
+  }
+  .modal-title {
+    margin: 2rem 0 1.6rem;
+  }
+  .modal-actions {
+    margin-top: 4rem;
+    display: flex;
+    gap: 2rem;
+  }
+}

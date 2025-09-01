@@ -1,0 +1,125 @@
+@use '@angular/material' as mat;
+@include mat.core();
+//custom mat theme set
+$my-primary: (
+  50: $blue50,
+  500: $blue500,
+  700: $blue700,
+  contrast: (
+    50: $black,
+    500: $white,
+    700: $white,
+  )
+);
+
+$my-accent: (
+  500: $purple,
+  A100: lighten($purple, 20%),
+  A700: darken($purple, 20%),
+  contrast: (
+    500: $white,
+    A100: $black,
+    A700: $white,
+  )
+);
+$my-theme-primary: mat.m2-define-palette($my-primary, 500, 50, 700);
+$my-theme-accent: mat.m2-define-palette($my-accent, 500, A100, A700);
+$my-theme-warn: mat.m2-define-palette(mat.$m2-red-palette);
+
+$my-theme: mat.m2-define-light-theme((
+  color: (
+    primary: $my-theme-primary,
+    accent: $my-theme-accent,
+    warn: $my-theme-warn,
+  )
+));
+@include mat.all-component-themes($my-theme);
+
+// mat overrides
+:root {
+  @include mat.form-field-overrides((
+   filled-with-label-container-padding-top: 0rem,
+   filled-with-label-container-padding-bottom: 0rem,
+   container-vertical-padding: 1rem,
+   container-height: auto,
+   container-text-line-height: 2rem,
+   container-text-size: 1.4rem,
+   leading-icon-color: $gray400,
+  ));
+
+  @include mat.dialog-overrides((
+    container-elevation-shadow: 'none',
+    container-shape: 0.8rem, 
+  ));
+
+  @include mat.table-overrides((
+    background-color: $white,
+    header-headline-color: $gray300,
+    header-headline-size: 1.2rem,
+    row-item-label-text-color: $gray600,
+    row-item-outline-color: $gray100,
+    row-item-label-text-size: 1.6rem,
+    row-item-outline-width: 0.1rem,
+    header-container-height: 4rem,
+    row-item-container-height: 7.6rem,
+  ));
+
+  @include mat.icon-overrides((
+    color: $gray50,
+  ));
+
+  @include mat.progress-spinner-overrides((
+    active-indicator-color: $purple,
+  ));
+}
+.mat-custom-input {
+  --mdc-outlined-text-field-error-outline-color: #{$danger};
+  --mdc-outlined-text-field-error-caret-color: #{$danger};
+  --mdc-outlined-text-field-error-focus-outline-color: #{$danger};
+  --mdc-outlined-text-field-error-hover-outline-color: #{$danger};
+}
+
+.planet-list__search.mat-custom {
+  min-width: 24rem;
+  --mdc-outlined-text-field-outline-color: #{$gray200};;
+  --mdc-outlined-text-field-outline-width: 0.1rem;
+  --mdc-outlined-text-field-container-shape: 0.4rem;
+  
+  .mat-mdc-text-field-wrapper {
+    padding: 0 1rem;
+    .mat-mdc-form-field-icon-prefix {
+      padding: 0;
+    }
+    .icon-search{
+      font-size: 1.2rem;
+      margin-right: 0.8rem;
+    }
+  }
+}
+
+.mat-custom {
+  * {
+    font-family: "Inter", sans-serif;
+    font-size: inherit;
+  }
+
+}
+
+.planets-table {
+  .table__row:last-child .table__cell {
+    border-bottom: 0.1rem solid $gray100;
+  }
+  .table__cell, .table__header-cell {
+    padding: 0.8rem 2rem;
+    &:first-child {
+      width: 34%;
+    }
+    width: 17%;
+
+  }
+}
+
+
+.backdrop-overlay {
+  background-color: rgba($gray600, 0.3);
+}

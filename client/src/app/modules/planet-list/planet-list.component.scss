@@ -1,0 +1,216 @@
+@import "../../../assets/scss/variables";
+@import "../../../assets/scss/media_queries";
+
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+.planet-header-wrapper {
+  background: $white;
+  .planet-list__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    flex-direction: column;
+    h1 {
+      margin-bottom: 2rem;
+    }
+    .planet-list__controls {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .planet-list__search {
+      order: -1;
+      width: 100%;
+    }
+  
+     @include media(">=tablet"){
+      flex-direction: row;
+      padding: 4rem;
+      h1 {
+        margin-bottom: 0;
+      }
+      .planet-list__search {
+        order: initial;
+        width: initial;
+      }
+      .planet-list__controls {
+        flex-wrap: nowrap;
+        justify-content: initial;
+      }
+    }
+  }
+}
+
+.planet-list-wrapper {
+  background: $gray50;
+  flex: 1;
+  .planets {
+    padding: 1rem;
+    &__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  
+    .planet-card {
+      background: $white;
+      border-radius: 0.8rem;
+      padding: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 0;
+      border: 0.2rem solid transparent;
+      transition: border-color 0.2s ease-in-out;
+      cursor: pointer;
+      &:hover {
+        border-color: $gray100;
+      }
+      &__image-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 2.4rem;
+      }
+      &__image {
+        width: 7rem;
+        height: 7rem;
+        border-radius: 50%;
+        object-fit: cover;
+        background: $gray50;
+      }
+      &__name {
+        margin-bottom: 3.2rem;
+        text-align: center;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        width: 100%;
+  
+      }
+      &__desc {
+        margin-bottom: 2rem;
+        text-align: center;
+      }
+      &__stats {
+        margin-top: auto;
+        display: flex;
+        justify-content: space-between;
+      
+        gap: 1.5rem;
+        width: 100%;
+        &-col {
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
+          min-width: 0;
+        }
+      }
+      &__stat {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        background: none;
+        padding: 0;
+      }
+      &__stat-value {
+        font-weight: 600;
+        text-overflow: ellipsis;
+        overflow: hidden; 
+        width: 100%; 
+        white-space: nowrap;
+      }
+    }
+  
+    &__list {
+      width: 100%;
+      overflow-y: auto;
+    }
+  
+    .planets-table {
+      width: 100%;
+  
+      th, td {
+        text-align: left;
+        vertical-align: middle;
+        font-size: inherit;
+      }
+      th {
+        font-weight: 600;
+      }
+      td {
+        border-radius: 0;
+      }
+      .table__row {
+        transition: background 0.2s ease-in;
+        cursor: pointer;
+        &:hover {
+          background: rgba($gray100, 0.1);
+        }
+      }
+      &__name {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+      }
+      &__image, &__circle {
+        width: 4rem;
+        height: 4rem;
+        border-radius: 50%;
+        object-fit: cover;
+        flex-shrink: 0;
+      }
+      &__planet-name {
+        font-weight: 600;
+      }
+      &__desc {
+        font-size: 1.2rem;
+        line-height: 2rem;
+        color: $gray300;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 30rem;
+      }
+    }
+  
+    @include media(">=tablet"){
+      &__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+      }
+      .planet-card {
+        padding: 2rem;
+        &__image, &__circle {
+          width: 8rem;
+          height: 8rem;
+        }
+      }
+      .planets-table {
+        &__image, &__circle {
+          width: 5rem;
+          height: 5rem;
+        }
+      }
+    }
+  
+    @include media(">=desktop"){
+      padding: 4rem;
+      &__grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+      }
+      .planet-card {
+        padding: 2.8rem 2rem;
+      }
+    }
+  }
+
+}

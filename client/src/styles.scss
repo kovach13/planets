@@ -1,1 +1,16 @@
-/* You can add global styles to this file, and also import other style files */
+@import './assets/scss/reset';
+@import './assets/scss/media_queries';
+@import './assets/scss/variables';
+@import './assets/scss/fonts';
+@import './assets/scss/icons';
+@import './assets/scss/typography';
+@import './assets/scss/buttons';
+@import './assets/scss/material-overrides';
+@import './assets/scss/layout';
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.mat-mdc-form-field-subscript-wrapper {
+ display: none;
+}

@@ -1,0 +1,76 @@
+<div class="planet-modal" cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
+  <h5 class="planet-modal__title">{{planet() ? 'Edit Planet': 'New Planet'}}</h5>
+  <form class="planet-modal__form" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-control" [ngClass]="{'form-invalid': imageCtrl.invalid && imageCtrl.touched}">
+     <div class="planet-modal__photo">
+      <label class="planet-modal__label" for="planet-photo">Photo</label>
+      <div class="planet-modal__photo-container">
+         @if (imageAdded()) {
+          <div class="planet-modal__photo-wrapper">
+            <div class="planet-image"
+               (click)="imageInput.click()"
+               [ngStyle]="{'background-image': 'url(' + imageAdded() + ')'}">
+            <mat-icon class="camera-icon">photo_camera</mat-icon>
+            </div>
+          </div>
+         } @else {
+          <button type="button" class="btn btn-small btn-small-primary" (click)="imageInput.click()">Add image</button>
+         }
+         <input hidden (change)="uploadImage(imageInput)" type="file" #imageInput />
+      </div>
+     </div>
+    </div>
+    <div class="form-control" [ngClass]="{'form-invalid': form.get('planetName')?.invalid && form.get('planetName')?.touched}">
+     <label>Name</label>
+     <mat-form-field class="planet-modal__field mat-custom-input" appearance="outline">
+       <input cdkFocusInitial matInput formControlName="planetName"/>
+     </mat-form-field>
+    </div>
+    <div class="form-control" [ngClass]="{'form-invalid': form.get('description')?.invalid && form.get('description')?.touched}">
+     <label>Description</label>
+     <mat-form-field class="planet-modal__field planet-modal__field--desc mat-custom-input" appearance="outline">
+      <textarea matInput rows="4" formControlName="description"></textarea>
+     </mat-form-field>
+    </div>
+
+    <div class="planet-modal__row">
+      <div class="form-control" [ngClass]="{'form-invalid': form.get('planetRadiusKM')?.invalid && form.get('planetRadiusKM')?.touched}">
+       <label>Radius in km</label>
+       <mat-form-field class="planet-modal__field planet-modal__field--half mat-custom-input" appearance="outline">
+        <input matInput type="number" formControlName="planetRadiusKM"/>
+       </mat-form-field>
+      </div>
+
+      <div class="form-control" [ngClass]="{'form-invalid': form.get('planetColor')?.invalid && form.get('planetColor')?.touched}">
+       <label>Color</label>
+       <mat-form-field class="planet-modal__field planet-modal__field--half mat-custom-input" appearance="outline">
+        <input matInput formControlName="planetColor"/>
+       </mat-form-field>
+      </div>
+     
+    </div>
+    <div class="planet-modal__row" formGroupName="distInMillionsKM">
+      <div class="form-control" [ngClass]="{'form-invalid': distCtrl.get('fromSun')?.invalid && distCtrl.get('fromSun')?.touched}">
+       <label>Dist. from Sun</label>
+       <mat-form-field class="planet-modal__field planet-modal__field--half mat-custom-input" appearance="outline">
+        <input matInput type="number" formControlName="fromSun" step="0.1" />
+       </mat-form-field>
+      </div>
+
+      <div class="form-control" [ngClass]="{'form-invalid': distCtrl.get('fromEarth')?.invalid && distCtrl.get('fromEarth')?.touched}">
+       <label>Dist. from Earth</label>
+       <mat-form-field class="planet-modal__field planet-modal__field--half mat-custom-input" appearance="outline">
+        <input matInput type="number" formControlName="fromEarth" step="0.1"/>
+       </mat-form-field>
+      </div>
+      
+    </div>
+    <div class="planet-modal__actions">
+      <button type="submit" 
+              color="primary" 
+              class="btn btn-primary planet-modal__btn--create" 
+              [disabled]="planet() && !form.dirty">{{planet() ? 'Confirm': 'Create'}}</button>
+      <button type="button" class="btn btn-ghost planet-modal__btn--cancel" (click)="close()">Cancel</button>
+    </div>
+  </form>
+</div>

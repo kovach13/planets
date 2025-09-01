@@ -1,0 +1,40 @@
+<section class="planet-details">
+  <div class="planet-header-wrapper">
+    <header class="planet-details__header container">
+      <h1 class="planet-details__title">{{planet()?.planetName}}</h1>
+      <div class="planet-details__actions">
+        <button #btn class="btn btn-primary-light planet-details__btn--edit" (click)="editPlanet()">Edit</button>
+        <button class="btn btn-primary planet-details__btn--delete" (click)="openConfirmation()">Delete</button>
+      </div>
+    </header>
+  </div>
+  <div class="planet-details-wrapper">
+    <div class="planet-details__main container">
+      <div class="planet-details__info">
+        <img [src]="planet()?.imageUrl" alt="planet name" class="planet-details__image" />
+        <div class="planet-details__details">
+          <h2 class="planet-details__name">{{planet()?.planetName}}</h2>
+          <p class="planet-details__desc text-regular">{{planet()?.description}}</p>
+        </div>
+      </div>
+      <div class="planet-details__stats">
+        <div class="planet-details__stat">
+          <span class="planet-details__stat-value text-dark">{{planet()?.planetRadiusKM}}</span>
+          <span class="planet-details__stat-label text-light text-sm">Radius in km</span>
+        </div>
+        <div class="planet-details__stat">
+          <span class="planet-details__stat-value text-dark">{{planet()?.distInMillionsKM?.fromSun}}</span>
+          <span class="planet-details__stat-label text-regular text-sm">Dist. from Sun</span>
+        </div>
+        <div class="planet-details__stat">
+          <span class="planet-details__stat-value text-dark">{{planet()?.planetColor}}</span>
+          <span class="planet-details__stat-label text-light text-sm">Color</span>
+        </div>
+        <div class="planet-details__stat">
+          <span class="planet-details__stat-value text-dark">{{planet()?.distInMillionsKM?.fromEarth}}</span>
+          <span class="planet-details__stat-label text-regular text-sm">Dist. from Earth</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

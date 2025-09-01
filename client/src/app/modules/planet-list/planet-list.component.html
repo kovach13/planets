@@ -1,0 +1,107 @@
+<div class="planet-header-wrapper">
+  <header class="planet-list__header container">
+   <h1 class="planet-list__title">Planets</h1>
+   <div class="planet-list__controls">
+    <div class="view-change">
+      <i class="icon icon-grid" [ngClass]="{'view-active': isGridView()}" (click)="changeView(VIEW_MODE.GRID)"></i>
+      <i class="icon icon-list" [ngClass]="{'view-active': !isGridView()}" (click)="changeView(VIEW_MODE.LIST)"></i>
+    </div>
+    <mat-form-field class="planet-list__search mat-custom" appearance="outline">
+     <i matPrefix class="icon-search icon"></i>
+     <input matInput placeholder="Search..." [formControl]="filterControl">
+    </mat-form-field>
+    <button class="btn btn-secondary" type="button" (click)="addPlanet()">
+      New Planet
+    </button>
+   </div>
+  </header>
+</div>
+
+<section class="planet-list-wrapper">
+  <div class="planets container">
+    <!-- Grid View -->
+     @if (isGridView()) {
+       <div class="planets__grid">
+         @for (planet of filteredPlanets(); track planet.id) {
+           <div class="planet-card" (click)="openDetails(planet)">
+             <div class="planet-card__image-wrapper">
+               <img [src]="planet.imageUrl" alt="{{planet.imageName}}" class="planet-card__image" />
+             </div>
+             <h2 class="planet-card__name">{{planet.planetName}}</h2>
+             <p class="planet-card__desc text-m text-regular">{{planet.description}}</p>
+             <div class="planet-card__stats">
+               <div class="planet-card__stats-col">
+                 <div class="planet-card__stat">
+                   <span class="planet-card__stat-value text-l">{{planet.planetColor}}</span>
+                   <span class="planet-card__stat-label text-sm text-regular">Color</span>
+                 </div>
+                 <div class="planet-card__stat">
+                   <span class="planet-card__stat-value text-l">{{planet.planetRadiusKM}}</span>
+                   <span class="planet-card__stat-label text-sm text-regular">Radius in km</span>
+                 </div>
+            
+               </div>
+               <div class="planet-card__stats-col">
+                 <div class="planet-card__stat">
+                   <span class="planet-card__stat-value text-l">{{planet.distInMillionsKM.fromSun}}</span>
+                   <span class="planet-card__stat-label text-sm text-regular">Dist. from Sun</span>
+                 </div>
+                 <div class="planet-card__stat">
+                   <span class="planet-card__stat-value text-l">{{planet.distInMillionsKM.fromEarth}}</span>
+                   <span class="planet-card__stat-label text-sm text-regular">Dist. from Earth</span>
+                 </div>
+               </div>
+             </div>
+           </div>
+         }
+       </div>
+     }
+    <!-- List/Table View -->
+    @if (!isGridView()) {
+      <div class="planets__list">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z0 planets-table mat-custom" matSort>
+          <!-- Image + Name Column -->
+          <ng-container matColumnDef="planetName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="table__header-cell">Name</th>
+            <td mat-cell *matCellDef="let planet" class="table__cell">
+              <div class="planets-table__name">
+                <img [src]="planet.imageUrl" alt="{{planet.imageName}}" class="planets-table__image" />
+                <div class="planets-table__info-wrapper">
+                  <div class="planets-table__planet-name">{{planet.planetName}}</div>
+                  <div class="planets-table__desc">{{planet.description}}</div>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+          <!-- Color Column -->
+          <ng-container matColumnDef="planetColor">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="table__header-cell">Color</th>
+            <td mat-cell *matCellDef="let planet" class="table__cell">{{planet.planetColor}}</td>
+          </ng-container>
+          <!-- Radius Column -->
+          <ng-container matColumnDef="planetRadiusKM">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="table__header-cell">Radius in km</th>
+            <td mat-cell *matCellDef="let planet" class="table__cell">{{planet.planetRadiusKM}}</td>
+          </ng-container>
+          <!-- Dist. from Sun Column -->
+          <ng-container matColumnDef="distFromSun">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="table__header-cell">Dist. from Sun</th>
+            <td mat-cell *matCellDef="let planet" class="table__cell">{{planet.distInMillionsKM.fromSun}}</td>
+          </ng-container>
+          <!-- Dist. from Earth Column -->
+          <ng-container matColumnDef="distFromEarth">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="table__header-cell">Dist. from Earth</th>
+            <td mat-cell *matCellDef="let planet" class="table__cell">{{planet.distInMillionsKM.fromEarth}}</td>
+          </ng-container>
+    
+          <tr mat-header-row *matHeaderRowDef="['planetName', 'planetColor', 'planetRadiusKM', 'distFromSun', 'distFromEarth']"></tr>
+          <tr mat-row 
+              *matRowDef="let planet; columns: ['planetName', 'planetColor', 'planetRadiusKM', 'distFromSun', 'distFromEarth'];" 
+              class="table__row" 
+              (click)="openDetails(planet)"></tr>
+        </table>
+      </div>
+    }
+  </div>
+
+</section>
