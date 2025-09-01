@@ -33,14 +33,24 @@ export class PlanetService {
   getPlanets(): Observable<IPlanet[]> {
     return this.http.get<PlanetBackendResponse[]>(environment.planets)
       .pipe(
-        map(res => res.map((data) => this.mapBackendPlanet(data)))
+        map(res => {
+          if (res) {
+            return res.map((data) => this.mapBackendPlanet(data));
+          }
+          return res;
+        })
       );
   }
 
   getPlanetById(id: number): Observable<IPlanet> {
     return this.http.get<PlanetBackendResponse>(`${environment.planets}/${id}`)
       .pipe(
-        map((data) => this.mapBackendPlanet(data))
+        map((data) =>{
+          if (data) {
+            return this.mapBackendPlanet(data);
+          }
+          return data;
+        })
       );
   }
   

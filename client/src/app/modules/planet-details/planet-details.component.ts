@@ -43,6 +43,11 @@ export class PlanetDetailsComponent implements OnInit {
     this.loaderService.show();
     this.planetService.getPlanetById(this.planetId)
       .subscribe((planet) => {
+        if (!planet) {
+          this.router.navigate(['']);
+          this.loaderService.hide();
+          return;
+        }
         this.planet.set(planet);
         this.loaderService.hide();
       })
