@@ -89,25 +89,11 @@ export class PlanetModifyComponent implements OnInit {
       return;
     }
 
-    if (this.planet()) {
-      this.close();
-      if (this.dialogOpened) {
-        this.dialogRef?.afterClosed().subscribe(() => this.openConfirmation());
-      } else {
-        this.bottomSheetRef?.afterDismissed().subscribe(() => this.openConfirmation());
-      }
+    this.close();
+    if (this.dialogOpened) {
+      this.dialogRef?.afterClosed().subscribe(() => this.openConfirmation(!this.planet()));
     } else {
-      this.planetService.addPlanet(this.form.value, this.selectedFile)
-        .subscribe(() => {
-            if (this.dataDialog?.confirm) {
-                this.dataDialog?.confirm();
-            }
-            if (this.dataBottom?.confirm) {
-                this.dataBottom?.confirm();
-            }
-            this.close();
-
-        });
+      this.bottomSheetRef?.afterDismissed().subscribe(() => this.openConfirmation(!this.planet()));
     }
   
   }
@@ -120,27 +106,35 @@ export class PlanetModifyComponent implements OnInit {
 
   editPlanet(): void {
     this.planetService.editPlanet(this.planet().id,this.form.value, this.selectedFile)
-      .subscribe(() => {
-          if (this.dataDialog?.confirm) {
-              this.dataDialog?.confirm();
-          }
-          if (this.dataBottom?.confirm) {
-              this.dataBottom?.confirm();
-          }
-
-      });
+      .subscribe(() => this.onRequestSent());
   }
 
-  openConfirmation(): void {
+  addPlanet(): void {
+    this.planetService.addPlanet(this.form.value, this.selectedFile)
+      .subscribe(() => this.onRequestSent());
+  }
+
+  onRequestSent(): void {
+    if (this.dataDialog?.confirm) {
+      this.dataDialog?.confirm();
+    }
+    if (this.dataBottom?.confirm) {
+      this.dataBottom?.confirm();
+    } 
+  }
+
+  openConfirmation(create = false): void {
+    const text = create ? `Are you sure you want to create ${this.form.get('planetName')?.value}?`:
+      `Are you sure you want to edit ${this.planet()?.planetName}?`
     const config: MatDialogConfig | MatBottomSheetConfig = {
       panelClass: 'confirmation-modal',
       data: {
         icon: 'icon-exclamation-popup',
-        title: 'Confirm editing',
-        text: `Are you sure you want to edit ${this.planet()?.planetName}?`,
+        title: `Confirm ${create ? 'creating':'editing'}`,
+        text,
         confirmBtn: 'Confirm',
         cancelBtn: 'Cancel',
-        confirm: () => this.editPlanet(),
+        confirm: () => create ? this.addPlanet() : this.editPlanet(),
       }
     };
     const dialogConfig: MatDialogConfig = {
