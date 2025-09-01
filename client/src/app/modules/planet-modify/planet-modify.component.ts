@@ -124,8 +124,8 @@ export class PlanetModifyComponent implements OnInit {
   }
 
   openConfirmation(create = false): void {
-    const text = create ? `Are you sure you want to create ${this.form.get('planetName')?.value}?`:
-      `Are you sure you want to edit ${this.planet()?.planetName}?`
+    const text = create ? `Are you sure you want to create <b class="text-bold600">${this.form.get('planetName')?.value}</b>?`:
+      `Are you sure you want to edit <b class="text-bold600">${this.planet()?.planetName}</b>?`
     const config: MatDialogConfig | MatBottomSheetConfig = {
       panelClass: 'confirmation-modal',
       data: {

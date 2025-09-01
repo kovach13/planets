@@ -70,7 +70,7 @@ export class PlanetDetailsComponent implements OnInit {
       data: {
         icon: 'icon-exclamation-popup',
         title: 'Confirm deleting',
-        text: `Are you sure you want to delete ${this.planet()?.planetName}?`,
+        text: `Are you sure you want to delete <b class="text-bold600">${this.planet()?.planetName}</b>?`,
         confirmBtn: 'Confirm',
         cancelBtn: 'Cancel',
         confirm: () => this.deletePlanet(),

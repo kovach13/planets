@@ -1,7 +1,7 @@
 <div class="modal confirmation-modal" cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
   <i class="modal-icon icon" [class]="icon()"></i>
   <h5 class="modal-title">{{title()}}</h5>
-  <p class="modal-text">{{text()}}</p>
+  <p class="modal-text" [innerHTML]="text()"></p>
   
   <div class="modal-actions" cdkFocusRegionStart >
     <button cdkFocusInitial class="btn btn-primary" (click)="confirm()">{{confirmBtnText()}}</button>
